@@ -25,7 +25,7 @@ function App() {
 
           <Route path="/footer" exact component={Footer} />
 
-          <Route path="/product/:productId" component={ProductDetails} />
+          <Route path="/products/:productId" component={ProductDetails} />
           <Route path="/signup" component={Signup} />
           <Route path="/Login" component={Login} />
 
