@@ -66,7 +66,7 @@ const ProductDetails = () => {
         <div className="ui stackable three column grid">
           {/* Get array of product objects from selected_products */}
           {Object.values(selected_products)
-            .slice(0,4) // Skip the first product
+            .slice(1) // Skip the first product
             .map(product => (
               <div className="four wide column" key={product.p_id}>
         <Link to={`/products/${product.p_id}`}>
