@@ -6,6 +6,7 @@ function ReviewForm() {
     reviews: '',
     rating: '',
   });
+  const [successMsg, setSuccessMsg] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +24,8 @@ function ReviewForm() {
       });
       const data = await response.json();
       console.log(data.message);
+      setSuccessMsg('Review added successfully!');
+
       setFormData({
         p_id: '',
         reviews: '',
@@ -36,6 +39,11 @@ function ReviewForm() {
   return (
   
 <div className='card' style={{height:'100%',padding:'30px'}}>
+{successMsg && (
+        <div className='alert alert-success' role='alert'>
+          {successMsg}
+          </div>
+      )}
     <form onSubmit={handleSubmit} >
       
 <label style={{marginRight:'20px',fontSize:'20px',display:'flex',color:'black'}}> 
