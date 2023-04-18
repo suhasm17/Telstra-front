@@ -7,9 +7,6 @@ import Navbar from "./containers/Navbar";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
-import Catalog from "./containers/Catalog";
-import Footer from "./containers/Footer"
-
 
 function App() {
   return (
@@ -19,13 +16,14 @@ function App() {
       
       <Navbar/>
         <Switch>
+        <Route path="/products/:productId" component={ProductDetails} />
           <Route path="/" exact component={Home} />
           <Route path="/products" exact component={ProductListing} />
-          <Route path="/catalog" exact component={Catalog} />
+          
 
-          <Route path="/footer" exact component={Footer} />
 
-          <Route path="/products/:productId" component={ProductDetails} />
+
+         
           <Route path="/signup" component={Signup} />
           <Route path="/Login" component={Login} />
 

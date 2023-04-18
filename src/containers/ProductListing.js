@@ -21,7 +21,7 @@ const ProductPage = () => {
  
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
   
 
   console.log("Products :", products);

@@ -32,15 +32,16 @@ const ProductDetails = () => {
     };// eslint-disable-next-line
   }, [productId]);
   return (
-    <div className="ui grid container">
+    <div className="ui grid container" >
     {Object.keys(selected_products).length === 0 ? (
       <div>...Loading</div>
     ) : (
       <div>
+
         {/* Render current product card */}
         <div className="ui two column stackable center aligned grid">
             <div className="ui divider"></div>
-          <div className="middle aligned row">
+          <div className="middle aligned row" style={{marginBottom:'100px'}}>
             <div className="column lp">
               <img className="ui fluid image" src={image} alt="img" />
             </div>
@@ -58,18 +59,22 @@ const ProductDetails = () => {
                   <i className="shop icon"></i>
                 </div>
                 <div className="visible content">Add to Cart</div>
+              
               </div>
+          
             </div>
           </div>
         </div>
-
+        
         <div className="ui stackable three column grid">
+       
           {/* Get array of product objects from selected_products */}
           {Object.values(selected_products)
             .slice(1) // Skip the first product
             .map(product => (
               <div className="four wide column" key={product.p_id}>
         <Link to={`/products/${product.p_id}`}>
+
           <div className="ui link cards">
             <div className="card">
               <div className="image">
@@ -88,6 +93,7 @@ const ProductDetails = () => {
             ))}
         </div>
       </div>
+   
       
     )}
     <div style={{marginTop:'40px',width:'100%'}}><Review></Review></div>
