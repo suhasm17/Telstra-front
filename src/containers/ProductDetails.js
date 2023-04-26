@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -7,14 +7,33 @@ import {
   selectedProduct,
   removeSelectedProduct,
 } from "../redux/actions/productsActions";
-import Review from './Review'
+// import Review from './Review'
 const ProductDetails = () => {
   const { productId } = useParams();
   
   const selected_products = useSelector((state) => state.product);
   const firstproduct = selected_products[0];
-  const { brand, category, description, image, name, p_id, price} = firstproduct || { };
+  const { category, description, image, name, p_id, price} = firstproduct || { };
   const dispatch = useDispatch();
+  const [productID, setProductID] = useState('');
+  const [review, setReview] = useState('');
+  const [rating, setRating] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setProductID(productID)
+    const data = { p_id, review, rating };
+    fetch('http://localhost:5000/review', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+  }
   
   const fetchProductDetail = async (productId) => {
     const response = await axios
@@ -24,6 +43,7 @@ const ProductDetails = () => {
       });
     dispatch(selectedProduct(response.data));
   };
+
 
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
@@ -96,7 +116,33 @@ const ProductDetails = () => {
    
       
     )}
-    <div style={{marginTop:'40px',width:'100%'}}><Review></Review></div>
+    <div style={{marginTop:'40px',width:'100%'}}><div>
+      <h2>Product Review Form</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="review">Review:</label>
+        <textarea
+          id="review"
+          name="review"
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
+        />
+        <label htmlFor="rating">Rating:</label>
+        <select
+          id="rating"
+          name="rating"
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
+        >
+          <option value="">--Select--</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    </div></div>
   </div>
   
   );

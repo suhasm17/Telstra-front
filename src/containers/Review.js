@@ -1,36 +1,35 @@
 import { useState } from 'react';
+import { useParams } from "react-router-dom";
 
 function ReviewForm() {
-  const [formData, setFormData] = useState({
-    p_id: '',
-    reviews: '',
-    rating: '',
-  });
+  const { productId } = useParams();
+  // const [formData, setFormData] = useState({
+  //   p_id: '',
+  //   reviews: '',
+  //   rating: '',
+  // });
+  const [p_id, setProductID] = useState('');
+  const [review, setReview] = useState('');
+  const [rating, setRating] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setProductID(productId)
+    // const data = {p_id, review, rating}
     try {
       const response = await fetch('http://localhost:5000/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({p_id,review,rating}),
       });
       const data = await response.json();
       console.log(data.message);
       setSuccessMsg('Review added successfully!');
 
-      setFormData({
-        p_id: '',
-        reviews: '',
-        rating: '',
-      });
     } catch (error) {
       console.error(error);
     }
@@ -51,8 +50,8 @@ function ReviewForm() {
         <input style={{marginLeft:'90px',width:'80%'}}
           type="number"
           name="rating"
-          value={formData.rating}
-          onChange={handleChange}
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
         />
       </label>
       <div style={{display:'flex',marginTop:'20px'}}>
@@ -60,8 +59,8 @@ function ReviewForm() {
         Review :
         <textarea style={{marginLeft:'160px',width:'100%'}} 
           name="reviews"
-          value={formData.reviews}
-          onChange={handleChange}
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
           
         />
         

@@ -16,7 +16,6 @@ const SearchProducts = () => {
       const response = await axios.get(`http://localhost:5000/search?q=${searchQuery}`);
       console.log(response.data.products)
       setProducts(response.data.products);
-      console.log(products)
     } catch (error) {
       console.log('Error:', error);
     }
