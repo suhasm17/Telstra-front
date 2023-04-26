@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const SearchProducts = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [products, setProducts] = useState('');
-
+  const [products] = useState('');
+  const history = useHistory();
   const handleInputChange = (event) => {
     event.preventDefault();
     setSearchQuery(event.target.value);
@@ -14,8 +15,8 @@ const SearchProducts = () => {
     event.preventDefault();
     try {
       const response = await axios.get(`http://localhost:5000/search?q=${searchQuery}`);
-      console.log(response.data.products)
-      setProducts(response.data.products);
+      const products = response.data.products;
+      history.push(`/search-results?q=${searchQuery}`, { products });
     } catch (error) {
       console.log('Error:', error);
     }
@@ -30,15 +31,6 @@ const SearchProducts = () => {
     <i className="fa fa-search me-6" style={{fontSize:"27px",alignContent:'center',color:'gray',marginLeft:'-10px'}} aria-hidden="true"></i></button>
 
       </form>
-      {products.length > 0 ? (
-        <ul>
-          {products.map((product) => (
-            <li key={product._id}>{product.name}</li>
-          ))}
-        </ul>
-      ) : (
-        <p></p>
-      )}
     </div>
   );
 };

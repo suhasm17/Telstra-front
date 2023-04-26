@@ -9,6 +9,7 @@ import Navbar from "./containers/Navbar";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
+import SearchResults from './containers/SearchResults';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/phones" exact component={ProductListing_Phones} />
         <Route path="/watches" exact component={ProductListing_Watches} />
         <Route path="/headsets" exact component={ProductListing_Headsets} />
+        <Route path="/search-results" component={SearchResults} />
           
           <Route path="/signup" component={Signup} />
           <Route path="/Login" component={Login} />
