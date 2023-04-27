@@ -1,3 +1,4 @@
+import { Container } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -116,33 +117,68 @@ const ProductDetails = () => {
    
       
     )}
-    <div style={{marginTop:'40px',width:'100%'}}><div>
-      <h2>Product Review Form</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="review">Review:</label>
-        <textarea
-          id="review"
-          name="review"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-        />
-        <label htmlFor="rating">Rating:</label>
-        <select
-          id="rating"
-          name="rating"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-        >
-          <option value="">--Select--</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <button type="submit">Submit</button>
-      </form>
-    </div></div>
+    <div style={{marginTop: '40px', width: '100%'}}>
+  <Container>
+    <div className='card' style={{width: '100%', height: '100%', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', borderRadius: '10px'}}>
+      <div className='card__body'>
+        <form onSubmit={handleSubmit} style={{padding: '30px'}}>
+          <h2 style={{paddingBottom: '30px', borderBottom: '2px solid #ddd'}}>Add your Review Here</h2>
+          <div style={{display: 'flex', alignItems: 'center', paddingBottom: '30px'}}>
+            <label htmlFor="rating" style={{fontSize: '24px', color: 'black', marginRight: '20px'}}>Rating:</label>
+            <select
+              id="rating"
+              name="rating"
+              value={rating}
+              onChange={(e) => setRating(e.target.value)}
+              style={{width: '50%'}}
+            >
+              <option value="">--Select--</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column', paddingBottom: '30px'}}>
+            <label htmlFor="review" style={{fontSize: '24px', color: 'black', paddingBottom: '10px'}}>Review:</label>
+            <textarea
+              id="review"
+              name="review"
+              value={review}
+              onChange={(e) => setReview(e.target.value)}
+              style={{width: '100%', height: '150px', padding: '10px', borderRadius: '5px', border: '1px solid #ddd'}}
+            />
+          </div>
+          <button 
+  style={{ 
+    width: '15%', 
+    padding: '8px', 
+    borderRadius: '5px', 
+    fontSize: '16px', 
+    backgroundColor: '#4bb9e1', 
+    color: 'white', 
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', 
+    border: 'none',
+    transition: 'all 0.2s ease-in-out',
+    cursor: 'pointer',
+  }}
+  onMouseEnter={(e) => {
+    e.target.style.backgroundColor = '#3da2c2';
+  }}
+  onMouseLeave={(e) => {
+    e.target.style.backgroundColor = '#4bb9e1';
+  }}
+>
+  Submit
+</button>
+
+
+        </form>
+      </div>
+    </div>
+  </Container>
+</div>
   </div>
   
   );
