@@ -122,21 +122,21 @@ const ProductDetails = () => {
     )}
     <div style={{marginTop: '40px', width: '100%'}}>
   <div class="card">
-  <div class="card-header">Add Your Review</div>
-  <div class="card-body">
-    <h5 class="card-title">Rate the product</h5>
+  <div class="card-header" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px'}}>Add Your Review</div>
+  <div class="card-body" style={{display:'flex', flexDirection:'column'}}>
+    <h5 class="card-title" style={{fontFamily:'Sora', fontWeight: '300px'}}>Rate the product</h5>
     <ReactStars
       count={5}
       onChange={(e) => setRating(toString(e))}
       size={24}
       activeColor="#ffd700"
     />
-    <p class="card-text">Review</p>
+    <h5 class="card-text" style={{fontFamily:'Sora', fontWeight: '300px', marginTop:'10px'}}>Review</h5>
     <div class="form-outline">
-      <input type="text" id="typeText" class="form-control" value={review} onChange={(e) => setReview(e.target.value)} />
-      <label class="form-label" for="typeText">Text input</label>
+      <input type="text" id="typeText" class="form-control" style={{maxWidth:'30%'}} value={review} onChange={(e) => setReview(e.target.value)} />
     </div>
-    <button type="button" onClick={handleSubmit} class="btn btn-primary">Submit</button>
+    <button style={{ width:'170px',height:'50px', border: 'None', marginTop:'30px', backgroundColor: '#109DC1', borderRadius:'10px'}} onClick={handleSubmit}> Submit </button>
+
   </div>
 </div>
 </div>
