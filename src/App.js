@@ -10,6 +10,7 @@ import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
 import SearchResults from './containers/SearchResults';
+import Search from './containers/Search'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Router>
       
       <Navbar/>
+      <Search/>
         <Switch>
         <Route path="/products/:productId" component={ProductDetails} />
         <Route path="/" exact component={Home} />

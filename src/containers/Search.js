@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 const SearchProducts = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [products] = useState('');
+  // const [products] = useState('');
   const history = useHistory();
   const handleInputChange = (event) => {
     event.preventDefault();

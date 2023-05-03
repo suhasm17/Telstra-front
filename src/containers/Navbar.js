@@ -1,5 +1,5 @@
 import React from 'react'
-import Search from './Search'
+import { MDBIcon } from 'mdbreact';
 
 const Navbar = () => {
   return (
@@ -8,40 +8,36 @@ const Navbar = () => {
   <div className="container-fluid">
   <a className="navbar-brand fw-bold fs-4" href="navbar">Telstronics</a>
   <form className="d-flex ms-1">
-<Search></Search>
+
     
 
   </form>
    
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-   
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mx-auto mb-3 mb-lg-0">
       
-        <li className="nav-item">
+        <li className="nav-item me-4">
         
-          <a className="nav-link active" aria-current="page" href="/">Home</a>
+          <a className="nav-link active" aria-current="page" style={{ fontFamily: 'Montserrat', fontStyle: 'normal', fontWeight: '700',fontSize: '18px', color: '#676767'}} href="/">HOME</a>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/shop">Shop</a>
+        <li className="nav-item me-4">
+          <a className="nav-link" style={{ fontFamily: 'Montserrat', fontStyle: 'normal', fontWeight: '700',fontSize: '18px', color: '#676767'}} href="/shop">SHOP</a>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/contact">Contact</a>
+        <li className="nav-item me-4">
+          <a className="nav-link" style={{ fontFamily: 'Montserrat', fontStyle: 'normal', fontWeight: '700',fontSize: '18px', color: '#676767'}} href="/contact">CONTACT</a>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/aboutus">About Us</a>
+        <li className="nav-item me-4">
+          <a className="nav-link" style={{ fontFamily: 'Montserrat', fontStyle: 'normal', fontWeight: '700',fontSize: '18px', color: '#676767'}} href="/aboutus">ABOUT US</a>
         </li>
 
       
       </ul>
      
       <div className='buttons'>
-        <a href="/signup" >
-        <i style={{fontSize:'25px',color:'black',paddingRight:'10px'}} className="fa fa-user-plus me-1"></i></a> 
         <a href="/cart"  >
-        <i style={{fontSize:'25px',color:'black',paddingRight:'10px'}} className="fa fa-shopping-cart me-1"></i> </a>
+        <MDBIcon style={{fontSize:'30px',color:'#676767',paddingRight:'10px'}} className='me-4' icon='cart-plus' /></a>
+        <a href="/signup" >
+        <MDBIcon style={{fontSize:'30px',color:'#676767',paddingRight:'10px'}} className='me-4' icon='user-circle' /></a> 
         
       </div>
     </div>
