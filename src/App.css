@@ -2,8 +2,8 @@ body{
   font-family: "Roboto", sans-serif;
   padding: 0;
   margin: 0;
-
   background: linear-gradient(112.42deg, #109DC1 0%, rgba(157, 237, 255, 0.57) 100%);
+  background-attachment: fixed;
 }
 
 .ui.cards > .card > .image {

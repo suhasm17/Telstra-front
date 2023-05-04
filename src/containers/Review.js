@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMeh, faFrown, faSmile } from '@fortawesome/free-solid-svg-icons';
-
+import ReactStars from "react-rating-stars-component";
 function ProductReviews({ productId }) {
   const [reviews, setReviews] = useState([]);
 
@@ -19,40 +17,36 @@ function ProductReviews({ productId }) {
       });
   }, [productId]);
 
-  // Define an icon based on the review rating
-  const getRatingIcon = (rating) => {
-    if (rating < 3) {
-      return <FontAwesomeIcon icon={faFrown} style={{fontSize:"30px",color:'grey'}} />;
-    } else if (rating < 4) {
-      return <FontAwesomeIcon icon={faMeh} style={{fontSize:"30px",color:'grey'}}/>;
-    } else {
-      return <FontAwesomeIcon icon={faSmile} style={{fontSize:"30px",color:'grey'}}/>;
-    }
-  };
-// Add a new review
-// eslint-disable-next-line
+  function getReviewListHeight(reviews) {
+    return reviews.length > 4 ? '300px' : `${reviews.length * 80}px`;
+  }
 
-
-  // Do something with the reviews data, e.g. render them
   return (
     <div>
-
-    <div className='card' style={{width: '100%', height: '100%', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', borderRadius: '10px',padding:'30px'}}>
-      <h2>Review History</h2>
-      <ul> 
-        {reviews.map((review) => (
-          
-          <li key={review.id}>
-          <div style={{paddingTop:'15px'}}>
-            {getRatingIcon(review.rating)}</div>
-            <div style={{borderBottom: '2px solid #ddd',paddingBottom:'15px'}}>
-            <p >{review.rating}</p>
-            <p style={{fontSize:'15px'}}>{review.review}</p>
+      <div class="card" style={{marginBottom:'50px'}}>
+      <div class="card-header px-3" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px'}}>Reviews By Other Customers</div>
+          {reviews.length === 0 ? (
+            <div class="alert alert-info" role="alert" style={{margin:'10px'}}>
+              No reviews yet! Please review the product.
             </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+          ) : (
+            <ul class="list-group list-group-light list-group-small" style={{height: getReviewListHeight(reviews), overflow: "auto"}}>
+              {reviews.map((review) => (
+                <li class="list-group-item px-3" key={review.id}>
+                  <ReactStars
+                    count={5}
+                    size={24}
+                    edit={false}
+                    value={review.rating}
+                    activeColor="#ffd700"
+                  />
+                  <p>{review.review}</p>
+                </li>
+              ))}
+            </ul>
+            )}
+      </div>
+
     </div>
   );
 }

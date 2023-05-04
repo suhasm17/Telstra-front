@@ -16,16 +16,17 @@ const ProductDetails = () => {
   
   const selected_products = useSelector((state) => state.product);
   const firstproduct = selected_products[0];
-  const { category, description, image, name, p_id, price} = firstproduct || { };
+  const { category, description,brand, image, name, p_id, price} = firstproduct || { };
   const dispatch = useDispatch();
   const [productID, setProductID] = useState('');
   const [review, setReview] = useState('');
   const [rating, setRating] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [message, setMessage] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    // setIsSubmitted(true);
     setProductID(productID)
     console.log(rating)
     console.log(review)
@@ -35,10 +36,15 @@ const ProductDetails = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+    .then(response => response.json(),
+    data => console.log(data),
+    setIsSubmitted(true),
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000)
+    )
     .catch(error => console.error(error));
   }
   
@@ -66,14 +72,16 @@ const ProductDetails = () => {
       <div>
 
         {/* Render current product card */}
-        <div class="card mb-3"  style={{maxWidth:'80%', height: '500px',display:'flex', justifyContent:'center', padding:'30px'}}>
+        <div><h1 class="card-title" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px', marginBottom:'20px'}}>{category}-{name}</h1></div>
+        <div class="card mb-3"  style={{ height: '500px',display:'flex', justifyContent:'center', padding:'30px'}}>
           <div class="row g-0" style={{}}>
             <div class="col-md-4">
             <img className="ui fluid image" style={{height: "100%", width: "100%", objectFit: "cover", objectPosition: "center",}} src={image} alt="img" />
             </div>
             <div class="col-md-8">
               <div class="card-body" style={{display:'flex', flexDirection: 'column' ,justifyContent: 'left', alignContent:'flex-start', alignSelf: 'flex-start',marginLeft:'30px'}}>
-                <h1 class="card-title" style={{fontFamily: 'Sora', fontSize: '50px', marginBottom:'50px'}}>{name}</h1>
+                <h1 class="card-title" style={{fontFamily: 'Sora', fontSize: '30px', marginBottom:'10px'}}>{brand}</h1>
+                <h1 class="card-title" style={{fontFamily: 'Sora', fontSize: '30px', marginBottom:'50px'}}>{name}</h1>
                 <p class="card-text" style={{marginBottom:'40px', fontFamily:'Sora', fontWeight: '300px'}}>
                 {description}
                 </p>
@@ -90,8 +98,8 @@ const ProductDetails = () => {
           </div>
         </div>
         
+        <div><h1 class="card-title" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px', marginBottom:'10px', marginTop:'30px'}}>Similar Products You May Like</h1></div>
         <div className="ui stackable three column grid">
-       
           {/* Get array of product objects from selected_products */}
           {Object.values(selected_products)
             .slice(1) // Skip the first product
@@ -127,7 +135,7 @@ const ProductDetails = () => {
     <h5 class="card-title" style={{fontFamily:'Sora', fontWeight: '300px'}}>Rate the product</h5>
     <ReactStars
       count={5}
-      onChange={(e) => setRating(toString(e))}
+      onChange={(e) => setRating(e)}
       size={24}
       activeColor="#ffd700"
     />
@@ -136,7 +144,7 @@ const ProductDetails = () => {
       <input type="text" id="typeText" class="form-control" style={{maxWidth:'30%'}} value={review} onChange={(e) => setReview(e.target.value)} />
     </div>
     <button style={{ width:'170px',height:'50px', border: 'None', marginTop:'30px', backgroundColor: '#109DC1', borderRadius:'10px'}} onClick={handleSubmit}> Submit </button>
-
+    {isSubmitted && <p style={{color: 'green', marginTop: '10px'}}>Review added successfully!</p>}          
   </div>
 </div>
 </div>
