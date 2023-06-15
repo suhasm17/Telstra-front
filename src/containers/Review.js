@@ -1,76 +1,54 @@
-import { useState } from 'react';
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import ReactStars from "react-rating-stars-component";
+function ProductReviews({ productId }) {
+  const [reviews, setReviews] = useState([]);
 
-function ReviewForm() {
-  const { productId } = useParams();
-  // const [formData, setFormData] = useState({
-  //   p_id: '',
-  //   reviews: '',
-  //   rating: '',
-  // });
-  const [p_id, setProductID] = useState('');
-  const [review, setReview] = useState('');
-  const [rating, setRating] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setProductID(productId)
-    // const data = {p_id, review, rating}
-    try {
-      const response = await fetch('http://localhost:5000/reviews', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({p_id,review,rating}),
+ 
+  useEffect(() => {
+    axios.get(`http://localhost:5000/reviews/${productId}`)
+      .then((response) => {
+        console.log(response.data)
+        const reviewsData = response.data || [];
+        setReviews(reviewsData);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      const data = await response.json();
-      console.log(data.message);
-      setSuccessMsg('Review added successfully!');
+  }, [productId]);
 
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  function getReviewListHeight(reviews) {
+    return reviews.length > 4 ? '300px' : `${reviews.length * 80}px`;
+  }
 
   return (
-  
-<div className='card' style={{height:'100%',padding:'30px'}}>
-{successMsg && (
-        <div className='alert alert-success' role='alert'>
-          {successMsg}
-          </div>
-      )}
-    <form onSubmit={handleSubmit} >
-      
-<label style={{marginRight:'20px',fontSize:'20px',display:'flex',color:'black'}}> 
-        Rating : 
-        <input style={{marginLeft:'90px',width:'80%'}}
-          type="number"
-          name="rating"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-        />
-      </label>
-      <div style={{display:'flex',marginTop:'20px'}}>
-   <label style={{fontSize:'20px',color:'black'}}>
-        Review :
-        <textarea style={{marginLeft:'160px',width:'100%'}} 
-          name="reviews"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          
-        />
-        
-      </label>
-      <button type="submit" style={{width:'auto',borderRadius:'70px',borderColor:'white',marginLeft:'160px',marginTop:'25px'}}><i class="fa fa-paper-plane" aria-hidden="true" style={{fontSize:'30px',display:'contents'}}></i>
-</button>
-</div>
-    </form>
+    <div>
+      <div class="card" style={{marginBottom:'50px'}}>
+      <div class="card-header px-3" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px'}}>Reviews By Other Customers</div>
+          {reviews.length === 0 ? (
+            <div class="alert alert-info" role="alert" style={{margin:'10px'}}>
+              No reviews yet! Please review the product.
+            </div>
+          ) : (
+            <ul class="list-group list-group-light list-group-small" style={{height: getReviewListHeight(reviews), overflow: "auto"}}>
+              {reviews.map((review) => (
+                <li class="list-group-item px-3" key={review.id}>
+                  <ReactStars
+                    count={5}
+                    size={24}
+                    edit={false}
+                    value={review.rating}
+                    activeColor="#ffd700"
+                  />
+                  <p>{review.review}</p>
+                </li>
+              ))}
+            </ul>
+            )}
+      </div>
+
     </div>
   );
 }
 
-export default ReviewForm;
+export default ProductReviews;

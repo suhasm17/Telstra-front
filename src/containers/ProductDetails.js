@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -8,31 +8,43 @@ import {
   selectedProduct,
   removeSelectedProduct,
 } from "../redux/actions/productsActions";
-// import Review from './Review'
+import Review from './Review'
+import ReactStars from "react-rating-stars-component";
+import { MDBIcon } from 'mdbreact';
 const ProductDetails = () => {
   const { productId } = useParams();
   
   const selected_products = useSelector((state) => state.product);
   const firstproduct = selected_products[0];
-  const { category, description, image, name, p_id, price} = firstproduct || { };
+  const { category, description,brand, image, name, p_id, price} = firstproduct || { };
   const dispatch = useDispatch();
   const [productID, setProductID] = useState('');
   const [review, setReview] = useState('');
   const [rating, setRating] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [message, setMessage] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // setIsSubmitted(true);
     setProductID(productID)
+    console.log(rating)
+    console.log(review)
     const data = { p_id, review, rating };
     fetch('http://localhost:5000/review', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+    .then(response => response.json(),
+    data => console.log(data),
+    setIsSubmitted(true),
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000)
+    )
     .catch(error => console.error(error));
   }
   
@@ -60,51 +72,50 @@ const ProductDetails = () => {
       <div>
 
         {/* Render current product card */}
-        <div className="ui two column stackable center aligned grid">
-            <div className="ui divider"></div>
-          <div className="middle aligned row" style={{marginBottom:'100px'}}>
-            <div className="column lp">
-              <img className="ui fluid image" src={image} alt="img" />
+        <div><h1 class="card-title" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px', marginBottom:'20px'}}>{category}-{name}</h1></div>
+        <div class="card mb-3"  style={{ height: '500px',display:'flex', justifyContent:'center', borderRadius:'20px',padding:'30px'}}>
+          <div class="row g-0" style={{}}>
+            <div class="col-md-4">
+            <img className="ui fluid image" style={{height: "100%", width: "100%", objectFit: "cover", objectPosition: "center",}} src={image} alt="img" />
             </div>
-            <div className="column rp">
-              <h1>{name}</h1>
-              <h2>
-                <a className="ui teal tag label" href="/">
-                  {price}
-                </a>
-              </h2>
-              <h3 className="ui brown block header">{category}</h3>
-              <p>{description}</p>
-              <div className="ui vertical animated button" tabIndex="0">
-                <div className="hidden content">
-                  <i className="shop icon"></i>
+            <div class="col-md-8">
+              <div class="card-body" style={{display:'flex', flexDirection: 'column' ,justifyContent: 'left', alignContent:'flex-start', alignSelf: 'flex-start',marginLeft:'30px'}}>
+                <h1 class="card-title" style={{fontFamily: 'Sora', fontSize: '30px', marginBottom:'10px'}}>{brand}</h1>
+                <h1 class="card-title" style={{fontFamily: 'Sora', fontSize: '30px', marginBottom:'50px'}}>{name}</h1>
+                <p class="card-text" style={{marginBottom:'40px', fontFamily:'Sora', fontWeight: '300px'}}>
+                {description}
+                </p>
+                <h2 style={{marginBottom:'30px', fontFamily:'Sora', fontWeight: '300px', fontSize:'30px'}}>
+                    {price}
+                </h2>
+                <div style={{display:'flex', justifyContent:'center'}}> 
+                <button style={{ width:'300px',height:'50px', border: 'None', marginRight:'20px', backgroundColor: '#1CBD97', borderRadius:'10px'}}><a href='/'  style={{color:'white', textDecoration:'None', fontFamily: "'Sofia Sans'", fontSize: '25px', fontWeight: '400px'}}><MDBIcon style={{fontSize:'20px',color:'#000000'}} className='me-4' icon='fire' />Buy Now</a></button>
+                <button style={{ width:'300px',height:'50px', border: 'None', marginLeft:'20px', backgroundColor: '#DDCB26', borderRadius:'10px'}}><a href='/'  style={{color:'white', textDecoration:'None', fontFamily: "'Sofia Sans'", fontSize: '25px', fontWeight: '400px'}}><MDBIcon style={{fontSize:'20px',color:'#000000'}} className='me-4' icon='shopping-cart' />Add To Cart</a></button>
+
                 </div>
-                <div className="visible content">Add to Cart</div>
-              
               </div>
-          
             </div>
           </div>
         </div>
         
+        <div><h1 class="card-title" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px', marginBottom:'10px', marginTop:'30px'}}>Similar Products You May Like</h1></div>
         <div className="ui stackable three column grid">
-       
           {/* Get array of product objects from selected_products */}
           {Object.values(selected_products)
             .slice(1) // Skip the first product
             .map(product => (
               <div className="four wide column" key={product.p_id}>
-        <Link to={`/products/${product.p_id}`}>
+        <Link to={`/products/${product.p_id}`} className="Link">
 
           <div className="ui link cards">
-            <div className="card">
+            <div className="card" style={{width:'600px' ,borderRadius: '30px', padding: '10px' }}>
               <div className="image">
                 <img src={product.image} alt={product.name} />
               </div>
               <div className="content">
-                <div className="header">{product.name}</div>
-                <div className="meta price">{product.price}</div>
-                <div className="meta">{product.brand}</div>
+                <div className="header" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '700', fontSize: '20px' }}>{product.brand}</div>
+                <div className="header" style={{background:'white',fontFamily:'Poppins, sans-serif',fontWeight:'900',fontSize:'20px'}}>{product.name}</div>
+                <div className="meta price" style={{marginTop:'10px', background:'white',fontFamily:'Poppins, sans-serif',fontWeight:'300',fontSize:'20px'}}>{product.price}</div>
               </div>
             </div>
           </div>
@@ -118,67 +129,26 @@ const ProductDetails = () => {
       
     )}
     <div style={{marginTop: '40px', width: '100%'}}>
-  <Container>
-    <div className='card' style={{width: '100%', height: '100%', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', borderRadius: '10px'}}>
-      <div className='card__body'>
-        <form onSubmit={handleSubmit} style={{padding: '30px'}}>
-          <h2 style={{paddingBottom: '30px', borderBottom: '2px solid #ddd'}}>Add your Review Here</h2>
-          <div style={{display: 'flex', alignItems: 'center', paddingBottom: '30px'}}>
-            <label htmlFor="rating" style={{fontSize: '24px', color: 'black', marginRight: '20px'}}>Rating:</label>
-            <select
-              id="rating"
-              name="rating"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              style={{width: '50%'}}
-            >
-              <option value="">--Select--</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-          <div style={{display: 'flex', flexDirection: 'column', paddingBottom: '30px'}}>
-            <label htmlFor="review" style={{fontSize: '24px', color: 'black', paddingBottom: '10px'}}>Review:</label>
-            <textarea
-              id="review"
-              name="review"
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
-              style={{width: '100%', height: '150px', padding: '10px', borderRadius: '5px', border: '1px solid #ddd'}}
-            />
-          </div>
-          <button 
-  style={{ 
-    width: '15%', 
-    padding: '8px', 
-    borderRadius: '5px', 
-    fontSize: '16px', 
-    backgroundColor: '#4bb9e1', 
-    color: 'white', 
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', 
-    border: 'none',
-    transition: 'all 0.2s ease-in-out',
-    cursor: 'pointer',
-  }}
-  onMouseEnter={(e) => {
-    e.target.style.backgroundColor = '#3da2c2';
-  }}
-  onMouseLeave={(e) => {
-    e.target.style.backgroundColor = '#4bb9e1';
-  }}
->
-  Submit
-</button>
-
-
-        </form>
-      </div>
+  <div class="card">
+  <div class="card-header" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px'}}>Add Your Review</div>
+  <div class="card-body" style={{display:'flex', flexDirection:'column'}}>
+    <h5 class="card-title" style={{fontFamily:'Sora', fontWeight: '300px'}}>Rate the product</h5>
+    <ReactStars
+      count={5}
+      onChange={(e) => setRating(e)}
+      size={24}
+      activeColor="#ffd700"
+    />
+    <h5 class="card-text" style={{fontFamily:'Sora', fontWeight: '300px', marginTop:'10px'}}>Review</h5>
+    <div class="form-outline">
+      <input type="text" id="typeText" class="form-control" style={{maxWidth:'30%'}} value={review} onChange={(e) => setReview(e.target.value)} />
     </div>
-  </Container>
+    <button style={{ width:'170px',height:'50px', border: 'None', marginTop:'30px', backgroundColor: '#109DC1', borderRadius:'10px'}} onClick={handleSubmit}> Submit </button>
+    {isSubmitted && <p style={{color: 'green', marginTop: '10px'}}>Review added successfully!</p>}          
+  </div>
 </div>
+</div>
+<div style={{marginTop: '40px', width: '100%'}}> <Review productId={productId}></Review> </div>
   </div>
   
   );

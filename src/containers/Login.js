@@ -66,20 +66,25 @@ const Login = () => {
 
   return (
     <div className="App">
-             <div className='card'  style={{width:'400px',height:'500px',marginLeft:'580px',marginTop:'50px'}}>
-
+             <div className='card'  style={{width:'500px',height:'450px',marginLeft:'510px',marginTop:'60px', borderRadius: '30px'}}>
       <form onSubmit={handleSubmit}>
-        <h1 style={{marginTop:'20px',marginLeft:'30px'}}>Login</h1>
+      <h1 style={{ marginTop: '20px', marginLeft: '45px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: '25px'}}>Login</h1>
         {inputs.map((input) => (
           <FormInput
             key={input.id}
             {...input}
             value={values[input.name]}
             onChange={onChange}
+            style={{ marginBottom: '10px', fontFamily: 'Exo, Sans-serif', color: 'black' }}
           />
         ))}
-        <button disabled={isLoading} style={{height:'50px',width:'80%',marginRight:'40px',backgroundColor:' #45B3CF',borderRadius:'15px',marginTop:'70px'}}><a href="/" style={{color:'black',fontSize:'20px'}} >{isLoading ? 'Loading...' : 'Login'}</a></button>
-        <p className="mt-3" style={{paddingLeft:'50px',paddingTop:'120px'}}>Don't have an account?<a href="/Signup">Signup</a></p>
+        <button disabled={isLoading} style={{ height: '50px', width: '60%', marginTop:'10px',marginRight: '100px', backgroundColor: '#45B3CF', borderRadius: '15px', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <a href="/" style={{ color: 'white', fontSize: '20px',fontFamily: 'Inter, sans-serif', fontWeight: '800', textDecoration: 'none' }} >{isLoading ? 'Loading...' : 'Log In'}</a>
+        </button>
+        <div className="buttons" style={{ marginTop: '90px', marginLeft: '20px', backgroundColor: 'white' }}></div>
+        <p style={{ marginTop: '10px', textAlign: 'center', fontSize:'16px', fontFamily: 'Exo, sans-serif',color: '#A9A9A9',}}>Don't have an Account? 
+    <a href="/signup" style={{ fontSize: '16px', fontFamily: 'Exo, sans-serif', color: '#45B3CF', marginLeft: '5px', textDecoration: 'none' }}>Signup</a>
+  </p>
       </form>
       {status === "Success" && <div>{resp}</div>}
       {status === "error" && <div>{err}</div>}
