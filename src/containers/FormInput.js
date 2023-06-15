@@ -11,11 +11,20 @@ const FormInput = (props) => {
   };
 
   return (
-    <div className="formInput">
+    <div className="formInput" style={{ marginRight: '0px' }}>
       <label> </label>
       <input
         {...inputProps}
         onChange={onChange}
+        style={{
+          marginBottom: '10px',
+          //border: '1px solid #ccc',
+          //borderRadius: '5px',
+          padding: '8px',
+          fontSize: '16px',
+          color: '#333',
+          fontFamily: 'Exo, sans-serif',
+        }}
         onBlur={handleFocus}             
         onFocus={() =>
           inputProps.name === "confirmPassword" && setFocused(true)

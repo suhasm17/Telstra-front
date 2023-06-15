@@ -7,13 +7,13 @@ import watch from '../Assets/watch.png'
 
 function Home() {
     return (
-      <Container style={{ overflowY: 'hidden' ,height: '100vh'}}>
+      <Container style={{ overflowY: 'hidden' ,height: '85vh'}}>
       
         <Row className="mt-3">
           <Col style={{ textAlign: 'left'}}>
-            <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }} >BUY YOUR</h1>
-            <p style={{ fontSize: '2.5rem', marginBottom: '2rem',fontWeight: 'bold' }}>FAVORITE PRODUCTS HERE</p>
-            <div style={{ display: 'flex', marginBottom:'50px', justifyContent:'center', alignItems:'center', flexWrap: 'wrap'}}>
+          <h1 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: '400', fontSize: '2.5rem', marginBottom: '1rem', marginLeft: '95px',}}>BUY YOUR</h1>
+            <p style={{fontFamily: 'Montserrat, sans-serif', fontSize: '3rem', marginBottom: '2rem',fontWeight: 'bold', marginLeft:'95px' }}>FAVOURITE PRODUCTS HERE</p>
+            <div style={{ display: 'flex', marginBottom:'50px', justifyContent:'center', alignItems:'center', flexWrap: 'wrap', marginLeft:'95px'}}>
             <div style={{width:'300px',height:'450px',marginRight:'100px',background: '#fff', borderRadius: '10px' }}>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: "'Sofia Sans Condensed', 'sans-serif'",paddingTop:'20px' }}>

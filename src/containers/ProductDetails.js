@@ -73,7 +73,7 @@ const ProductDetails = () => {
 
         {/* Render current product card */}
         <div><h1 class="card-title" style={{fontFamily: "'Sofia Sans Condensed', 'sans-serif'", fontSize: '30px', marginBottom:'20px'}}>{category}-{name}</h1></div>
-        <div class="card mb-3"  style={{ height: '500px',display:'flex', justifyContent:'center', padding:'30px'}}>
+        <div class="card mb-3"  style={{ height: '500px',display:'flex', justifyContent:'center', borderRadius:'20px',padding:'30px'}}>
           <div class="row g-0" style={{}}>
             <div class="col-md-4">
             <img className="ui fluid image" style={{height: "100%", width: "100%", objectFit: "cover", objectPosition: "center",}} src={image} alt="img" />
@@ -105,17 +105,17 @@ const ProductDetails = () => {
             .slice(1) // Skip the first product
             .map(product => (
               <div className="four wide column" key={product.p_id}>
-        <Link to={`/products/${product.p_id}`}>
+        <Link to={`/products/${product.p_id}`} className="Link">
 
           <div className="ui link cards">
-            <div className="card">
+            <div className="card" style={{width:'600px' ,borderRadius: '30px', padding: '10px' }}>
               <div className="image">
                 <img src={product.image} alt={product.name} />
               </div>
               <div className="content">
-                <div className="header">{product.name}</div>
-                <div className="meta price">{product.price}</div>
-                <div className="meta">{product.brand}</div>
+                <div className="header" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '700', fontSize: '20px' }}>{product.brand}</div>
+                <div className="header" style={{background:'white',fontFamily:'Poppins, sans-serif',fontWeight:'900',fontSize:'20px'}}>{product.name}</div>
+                <div className="meta price" style={{marginTop:'10px', background:'white',fontFamily:'Poppins, sans-serif',fontWeight:'300',fontSize:'20px'}}>{product.price}</div>
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ const Signup = () => {
       id: 1,
       name: "Full Name",
       type: "text",
-      placeholder: "FullName",
+      placeholder: "Full Name",
       errorMessage:
         "Full Name should be 3-16 characters and shouldn't include any special character!",
       label: "Full Name",
@@ -56,7 +56,7 @@ const Signup = () => {
       id: 4,
       name: "confirmpassword",
       type: "password",
-      placeholder: "confirm Password",
+      placeholder: "Confirm Password",
       errorMessage:
         " Password don't match",
       label: "confirm Password",
@@ -106,26 +106,37 @@ const Signup = () => {
 
   return (
     <div className="App">
-         <div className='card'  style={{width:'400px',height:'550px',marginLeft:'580px',marginTop:'50px'}}>
+         <div className='card'  style={{width:'500px',height:'540px',marginLeft:'510px',marginTop:'60px', borderRadius: '30px'}}>
       <form onSubmit={handleSubmit}>
-        <h1 style={{marginTop:'20px',marginLeft:'30px'}}>Create Account</h1>
-        {inputs.map((input) => (
-          <FormInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
-            onChange={onChange}
-           
-          />
-        ))}
-        <p className="mt-3" style={{marginLeft:'30px'}}>Already have an account?<a href="/Login">Login</a></p>
-        
-        
-        <button disabled={isLoading} style={{height:'50px',width:'80%',marginRight:'40px',backgroundColor:' #45B3CF',borderRadius:'15px'}}><a href="/login" style={{color:'black',fontSize:'20px'}} >{isLoading ? 'Loading...' : 'Signup'}</a></button>
-        <div className='buttons' style={{marginTop:'90px',marginLeft:'20px',backgroundColor:'white'}}>
-        <a href="/signup" style={{color:'black',fontFamily: 'Inter',fontWeight: '500',fontSize: '25px'}}>
-        <i className="fa fa-arrow-left me-1" style={{marginLeft:'10px'}}>Back</i></a> 
-        </div>
+      <h1 style={{ marginTop: '20px', marginLeft: '45px', fontFamily: 'Inter, sans-serif', fontWeight: 'bold', fontSize: '25px'}}>Create Account</h1>
+      <div style={{ marginLeft: '0px' }}>
+  {inputs.map((input) => (
+    <FormInput
+      key={input.id}
+      {...input}
+      value={values[input.name]}
+      onChange={onChange}
+      style={{ marginBottom: '10px', fontFamily: 'Exo, Sans-serif', color: 'black' }}
+    />
+  ))}
+</div>
+       
+<button disabled={isLoading} style={{ height: '50px', width: '60%', marginTop:'10px',marginRight: '100px', backgroundColor: '#45B3CF', borderRadius: '15px', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  <a href="/login" style={{ color: 'white', fontSize: '20px',fontFamily: 'Inter, sans-serif', fontWeight: '800', textDecoration: 'none' }}>
+    {isLoading ? 'Loading...' : 'Sign Up'}
+  </a>
+</button>
+
+<div className="buttons" style={{ marginTop: '90px', marginLeft: '20px', backgroundColor: 'white' }}>
+<p style={{ marginTop: '10px', textAlign: 'center', fontSize:'16px', fontFamily: 'Exo, sans-serif',color: '#A9A9A9',}}>
+    Already have an Account? 
+    <a href="/login" style={{ fontSize: '16px', fontFamily: 'Exo, sans-serif', color: '#45B3CF', marginLeft: '5px', textDecoration: 'none' }}>Login</a>
+  </p>
+  <a href="/" style={{ color: 'black', fontFamily: 'Inter, sans-serif', fontWeight: '550', fontSize: '20px', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+    <i class="fa fa-arrow-circle-o-left" style={{ marginLeft: '15px' }}></i> Back</a>
+  
+</div>
+
       </form>
       {status === 'Success' && <div>{resp}</div>}
       {status === 'error' && <div>{err}</div>}

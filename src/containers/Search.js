@@ -37,7 +37,7 @@ const SearchProducts = () => {
 
     <div class="input-group" style={{display:'flex', justifyContent:'center', flexDirection: 'row', marginTop:'40px'}}>
       <div class="form-outline" style={{}}>
-        <input type="search" value={searchQuery} onChange={handleInputChange} style={{borderRadius:'30px',alignContent:'centre',width:'400px',height:'40px'}} id="form1" placeholder='  Search Product' class="form-control" />
+        <input type="search" value={searchQuery} onChange={handleInputChange} style={{borderRadius:'30px',alignContent:'centre',width:'400px',height:'40px'}} id="form1" placeholder='  Search for your product' class="form-control" />
       </div>
       <div onClick={handleSubmit}  style={{display:'flex',  justifyContent:'center', alignItems:'center', marginLeft:'5px'}}><MDBIcon style={{fontSize:'25px',color:'#676767'}} onClick={handleSubmit} className='me-4' icon='search' /></div>
     </div>

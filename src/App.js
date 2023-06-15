@@ -13,13 +13,18 @@ import SearchResults from './containers/SearchResults';
 import Search from './containers/Search'
 
 function App() {
+  const hiddenSearchBarRoutes = ['/signup', '/login'];
+
+  const shouldDisplaySearchBar = !hiddenSearchBarRoutes.includes(window.location.pathname);
+
   return (
     <div className="App">
    
       <Router>
       
       <Navbar/>
-      <Search/>
+      
+      {shouldDisplaySearchBar && <Search />}
         <Switch>
         <Route path="/products/:productId" component={ProductDetails} />
         <Route path="/" exact component={Home} />
@@ -29,10 +34,13 @@ function App() {
         <Route path="/search-results" component={SearchResults} />
           
           <Route path="/signup" component={Signup} />
-          <Route path="/Login" component={Login} />
+          <Route path="/login" component={Login} />
 
           <Route>404 Not Found!</Route>
         </Switch>
+        <switch>
+          
+        </switch>
       </Router>
     </div>
   );
